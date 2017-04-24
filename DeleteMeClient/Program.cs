@@ -2,6 +2,7 @@
 using Microsoft.WindowsAzure.Storage.Queue;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -27,7 +28,7 @@ namespace DeleteMeClient
 
         void Run()
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=rcwyattrawstorage;AccountKey=MF9hDBS2Tx5k4bLgnqstcZ1lfBpkGNb6NL3SrkWReuf8cnTfreA9OcXWSIObaLK/gflPOm5PVRzEZxEOtfsLwg==");
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.AppSettings["StorageConnectionString"]);
 
             // Create the queue client.
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
