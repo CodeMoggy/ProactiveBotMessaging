@@ -1,2 +1,2 @@
-# ProactiveBotMessaging
-Proactive Bot Messaging with Azure Function / Queues and Storage
+# Proactive Bot Messaging
+A solution that demonstrated how to do Proactive Bot Messaging using Azure Function / Queues and Storage.
