@@ -47,7 +47,9 @@ If you don't enter an order number in this format, I'll assume you just want to 
             {
                 if (message.Text.Contains("#") == false)
                 {
-                    await context.PostAsync($@"{_dialogName}I notice you haven't specified an order number. Let's chat instead...tell me your nickname.");
+                    LastDialogMessageSentToUser = "Tell me your nickname.";
+
+                    await context.PostAsync($@"{_dialogName}No order number? Let's chat instead...tell me your nickname.");
 
                     context.Wait(this.MessageReceivedAsyncStartConversationAsync);
                 }
@@ -77,6 +79,8 @@ If you don't enter an order number in this format, I'll assume you just want to 
                     CloudQueueMessage messageNew = new CloudQueueMessage(JsonConvert.SerializeObject(queueMessage));
                     queue.AddMessage(messageNew);
 
+                    LastDialogMessageSentToUser = string.Empty;
+
                     await context.PostAsync($@"{_dialogName}When the order {orderNumber} has been despatched you will be notified here.");
 
                     context.Wait(MessageReceivedAsync);
@@ -92,18 +96,18 @@ If you don't enter an order number in this format, I'll assume you just want to 
 
             await context.PostAsync(reply);
             LastDialogMessageSentToUser = reply;
-
-
             context.Wait(this.MessageReceivedAgeConfirmedAsync);
         }
 
         public async Task MessageReceivedAgeConfirmedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var age = (await argument).Text;
-            var reply = $@"{_dialogName}Are you really only {age}? You don't look it :) I am bored with chatting!!! Give me an order number.";
+            var reply = $@"{_dialogName} {age}! I don't believe you. ";
+
+            // dialog finished
+            LastDialogMessageSentToUser = string.Empty;
 
             await context.PostAsync(reply);
-            LastDialogMessageSentToUser = reply;
 
             context.Wait(MessageReceivedAsync);
         }

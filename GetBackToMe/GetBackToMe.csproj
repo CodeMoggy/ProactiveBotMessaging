@@ -149,7 +149,6 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
-    <Compile Include="ConversationStarter.cs" />
     <Compile Include="Dialogs\DesptchActions\NotifyCustomer\NotifyCustomerDialog.cs" />
     <Compile Include="Dialogs\DesptchActions\ScorableActions.cs" />
     <Compile Include="Dialogs\DesptchActions\ScorableActionsDialog.cs" />

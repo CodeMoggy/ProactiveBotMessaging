@@ -37,7 +37,7 @@ namespace GetBackToMe.Dialogs.DesptchActions
             }
             else
             {
-                await context.PostAsync($@"{_dialogName}I didn't get that :( Which action? 'View Order' or 'Notify Customer'?");
+                await context.PostAsync($@"{_dialogName} Not a recognised action. Which action, 'View Order' or 'Notify Customer'?");
 
                 // State transition - wait for 'operation choice' message from user (loop back)
                 context.Wait(MessageReceivedOperationChoice);
@@ -59,7 +59,8 @@ namespace GetBackToMe.Dialogs.DesptchActions
 
             if (lastDialogMessageSentToUser != null)
             {
-                await context.PostAsync("** LAST MESSAGE: " + lastDialogMessageSentToUser.LastDialogMessageSentToUser);
+                if (!string.IsNullOrEmpty(lastDialogMessageSentToUser.LastDialogMessageSentToUser))
+                    await context.PostAsync($"** LAST MESSAGE: {lastDialogMessageSentToUser.LastDialogMessageSentToUser}");
             }
 
             // State transition - complete this Dialog and remove it from the stack
